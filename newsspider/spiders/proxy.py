@@ -21,11 +21,13 @@ class ProxySpider(scrapy.Spider):
             ld = ProxyLoader(ProxyItem(),sel)
             ld.add_css('ip','td:nth-child(1)::text',MapCompose(unicode.strip))
             ld.add_css('port','td:nth-child(2)::text',MapCompose(unicode.strip))
-            ld.add_css('ptyp','td:nth-child(4)::text',MapCompose(unicode.strip))
+            ld.add_css('ptype','td:nth-child(4)::text',MapCompose(unicode.strip,unicode.lower))
             ld.add_css('level','td:nth-child(5)::text',MapCompose(unicode.strip))
-            if 'IP' in ld.get_output_value('ip').upper():
-                continue
-            else:
-                yield ld.load_item()
+            a  = ld.get_css('td:nth-child(7)::text',MapCompose(unicode.strip))
+            if a and 'ms' in a[0]:
+                if 'IP' in ld.get_output_value('ip').upper():
+                    continue
+                else:
+                    yield ld.load_item()
 
 

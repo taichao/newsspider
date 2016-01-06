@@ -16,6 +16,11 @@ NEWSPIDER_MODULE = 'newsspider.spiders'
 
 SAVED_PATH='/tmp/scrapy/'
 LOG_LEVEL='INFO'
+DB_HOST='rdsqswhmjfiys87frepua.mysql.rds.aliyuncs.com'
+DB_PORT=3306
+DB_USERNAME='shihe'
+DB_PASSWORD='shinc123456'
+DB_NAME='spider_news'
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'newsspider (+http://www.yourdomain.com)'
 
@@ -52,7 +57,7 @@ COOKIES_ENABLED=False
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
     'scrapy.contrib.downloadermiddleware.useragent.UserAgentMiddleware' : None,
-    'newsspider.middlewares.ProxyMiddleware': 542,
+    # 'newsspider.middlewares.ProxyMiddleware': 542,
     'newsspider.middlewares.RotateUserAgentMiddleware': 543,
 }
 
@@ -67,6 +72,7 @@ DOWNLOADER_MIDDLEWARES = {
 ITEM_PIPELINES = {
     'newsspider.pipelines.JsonExportNewsPipeline': 300,
     'newsspider.pipelines.JsonExportCommentPipeline': 400,
+    'newsspider.pipelines.MysqlExportPipeline': 500,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

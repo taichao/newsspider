@@ -111,7 +111,7 @@
         <entry file="file://$PROJECT_DIR$/items.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="28" column="24" selection-start-line="31" selection-start-column="18" selection-end-line="31" selection-end-column="24" />
+              <caret line="35" column="24" selection-start-line="31" selection-start-column="18" selection-end-line="31" selection-end-column="24" />
               <folding>
                 <element signature="e#152#165#0" expanded="true" />
               </folding>
@@ -682,7 +682,7 @@
     <entry file="file://$PROJECT_DIR$/items.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="28" column="24" selection-start-line="31" selection-start-column="18" selection-end-line="31" selection-end-column="24" />
+          <caret line="35" column="24" selection-start-line="31" selection-start-column="18" selection-end-line="31" selection-end-column="24" />
           <folding>
             <element signature="e#152#165#0" expanded="true" />
           </folding>

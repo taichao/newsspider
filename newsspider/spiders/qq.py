@@ -7,17 +7,24 @@ from urlparse import urlparse,urljoin
 class QqSpider(scrapy.Spider):
     name = "qq"
     cmturl = 'http://coral.qq.com/article'
-    #allowed_domains = ["qq.com"]
+    allowed_domains = ["qq.com"]
     start_urls = (
-        #'http://news.qq.com/',
-        'http://dev.web.91ucan.com/',
+        'http://news.qq.com/',
     )
+    custom_settings = {
+        'download_timeout':5
+    }
 
     def parse(self, response):
+        #get_news
         for url in response.xpath('//a/@href').extract():
             r = re.search(r'/a/',url)
             if r:
                 yield scrapy.Request(url,self.parse_news)
+
+        #get navs
+        for url in response.css('#channelNavPart a[href]::attr(href)').extract():
+            yield scrapy.Request(url,self.parse)
 
 
     def parse_news(self, response):

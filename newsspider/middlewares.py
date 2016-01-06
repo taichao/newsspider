@@ -7,18 +7,23 @@ import logging
 使用注意：需在settings.py中进行相应的设置。
 """
 
-import random
+import random,datetime,logging
 from scrapy.contrib.downloadermiddleware.useragent import UserAgentMiddleware
+import newsspider.dbservice
 class ProxyMiddleware(object):
+    def __init__(self):
+        ds = newsspider.dbservice.DBService()
+        sql = "select ip,port from http_proxy_info where type = %s and update_time = %s"
+        data = ('http',datetime.date.today())
+        self.proxies = ds.executeQuery(sql,data)
     def process_request(self, request, spider):
-        if len(PROXIES) == 0:
-            return
-        proxy = random.choice(PROXIES)
-        print "**************ProxyMiddleware no pass************" + proxy['ip_port']
-        request.meta['proxy'] = "http://%s" % proxy['ip_port']
-
-PROXIES = [
-]
+        if len(self.proxies) == 0:
+            logging.error('get proxy ip failure')
+            raise Exception('get proxy ip failure')
+        proxy = random.choice(self.proxies)
+        proxy = ':'.join(proxy)
+        print "**************ProxyMiddleware no pass************" + proxy
+        request.meta['proxy'] = "http://%s" % proxy
 
 class RotateUserAgentMiddleware(UserAgentMiddleware):
 
